@@ -25,11 +25,13 @@ public class Background {
     }
 
     public void paintBackground(Graphics g, int speed) {
-        if (x >= 799)
+        if (x >= 799) {
             x = 0;
+        }
         g.drawImage(bg, -x, y, Renderer.WIDTH, Renderer.HEIGHT, null);
         g.drawImage(bg, 799 - x, y, Renderer.WIDTH, Renderer.HEIGHT, null);
-        if (speed != 0)
+        if (speed != 0) {
             x += 1 + speed - 10;
+        }
     }
 }

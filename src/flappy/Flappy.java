@@ -29,6 +29,7 @@ public class Flappy implements ActionListener {
 
         timer.start();
     }
+
     /**
      * A method that starts the game process,
      * or Droid makes jump
@@ -71,20 +72,21 @@ public class Flappy implements ActionListener {
             yMotion -= heightJump;
         }
     }
+
     /**
-     *method adjusts the speed
+     * method adjusts the speed
      * of movement of the columns
      *
      * @see Flappy#xIncrement()()
      */
     public void xIncrement() {
-        if (score == 10 && !gameOwer)
+        if (score == 10 && !gameOwer) {
             speed = 11;
-        else if (score == 20 && !gameOwer)
+        } else if (score == 20 && !gameOwer) {
             speed = 12;
-        else if (score == 30 && !gameOwer)
+        } else if (score == 30 && !gameOwer) {
             speed = 13;
-        else if (score % 15 == 0 && score != 0 && !gameOwer && speedflag) {
+        } else if (score % 15 == 0 && score != 0 && !gameOwer && speedflag) {
             speedflag = false;
             Random rand = new Random();
             speed = 10 + rand.nextInt(3);
@@ -97,6 +99,7 @@ public class Flappy implements ActionListener {
             column.x -= speed;
         }
     }
+
     /**
      * The method controls the droid jumps
      * without the participation of the player
@@ -119,6 +122,7 @@ public class Flappy implements ActionListener {
                 }
             }
     }
+
     /**
      * Method pauses the game
      *
@@ -133,8 +137,9 @@ public class Flappy implements ActionListener {
             speed = pauseSpeed;
         }
     }
+
     /**
-     *A method in which
+     * A method in which
      * lies the game logic
      *
      * @param e Event class object
@@ -237,8 +242,9 @@ public class Flappy implements ActionListener {
             if (recovery) g.drawString("recovery", 700, 50);
         }
     }
+
     /**
-     *inner class
+     * inner class
      * interface implements MouseListener
      *
      * @link Flappy#ForMouse
@@ -270,8 +276,9 @@ public class Flappy implements ActionListener {
 
         }
     }
+
     /**
-     *inner class
+     * inner class
      * interface implements KeyListener
      *
      * @link Flappy#ForKey
@@ -292,10 +299,11 @@ public class Flappy implements ActionListener {
         @Override
         public void keyReleased(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
-                if (!jumpflag)
+                if (!jumpflag) {
                     jumpflag = true;
-                else
+                } else {
                     jumpflag = false;
+                }
             }
             if (!started || gameOwer) {
                 if (e.getKeyCode() == KeyEvent.VK_1) {
@@ -325,8 +333,11 @@ public class Flappy implements ActionListener {
                 }
             } else {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    if (!pause) pause = true;
-                    else pause = false;
+                    if (!pause) {
+                        pause = true;
+                    } else {
+                        pause = false;
+                    }
                 }
             }
         }
