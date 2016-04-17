@@ -14,6 +14,7 @@ public class Renderer extends JPanel {
     private Flappy.ForMouse formouse = flappy.new ForMouse();
     private Flappy.ForKey forkey = flappy.new ForKey();
     private static JFrame jframe = new JFrame();
+    private Thread walk = new Thread(new Meteorite(this));
     /**
      * Frame size
      */
@@ -34,6 +35,7 @@ public class Renderer extends JPanel {
         jframe.setSize(WIDTH, HEIGHT);
         jframe.setResizable(false);
         jframe.setVisible(true);
+        walk.start();
 
     }
 

@@ -189,7 +189,7 @@ public class Flappy implements ActionListener {
                 }
             }
         }
-        renderer.repaint();
+        //renderer.repaint();
     }
 
     /**
