@@ -22,18 +22,24 @@ public class MarshMallow {
         if (Save.x == 0) {
             Random rand = new Random();
             int offset = rand.nextInt(300);
-            if (offset >= 0 && offset <= 50)
+            if (offset >= 0 && offset <= 50) {
                 offset = 50;
-            else if (offset >= 50 && offset <= 100)
+            }
+            else if (offset >= 50 && offset <= 100) {
                 offset = 100;
-            else if (offset >= 100 && offset <= 150)
+            }
+            else if (offset >= 100 && offset <= 150) {
                 offset = 150;
-            else if (offset >= 150 && offset <= 200)
+            }
+            else if (offset >= 150 && offset <= 200) {
                 offset = 200;
-            else if (offset >= 200 && offset <= 250)
+            }
+            else if (offset >= 200 && offset <= 250) {
                 offset = 250;
-            else if (offset >= 250 && offset <= 300)
+            }
+            else if (offset >= 250 && offset <= 300) {
                 offset = 300;
+            }
             x = 800 + offset;
         } else {
             x = Save.x;
@@ -50,7 +56,7 @@ public class MarshMallow {
             Logger.getLogger(Flappy.class.getName()).log(Level.SEVERE, null, e);
         }
         SpriteSheet ss = new SpriteSheet(spriteSheet);
-        this.mm = ss.grabSprite(0, 0, 67, 147);
+        this.mm = ss.grabSprite(0, 0, width, height);
         Save.record(x);
     }
 

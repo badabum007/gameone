@@ -16,7 +16,6 @@ public class Sort {
     Sort() {
         File myFolder = new File("for save");
         processFilesFromFolder(myFolder);
-
     }
 
     public void sortInJava() {
@@ -58,6 +57,7 @@ public class Sort {
                 BufferedReader reader;
                 reader = new BufferedReader((new FileReader(fileObject.getName())));
                 fileObject.setScore(Integer.parseInt(reader.readLine()));
+                reader.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {

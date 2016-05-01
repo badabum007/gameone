@@ -95,7 +95,7 @@ public class Flappy implements ActionListener {
      * @see Flappy#autojump()
      */
     public void autojump() {
-        if (jumpflag)
+        if (jumpflag) {
             for (MarshMallow column : columns) {
                 if (column.x - android.x < 150 && column.x - android.x > 0) {
                     if (!gameOwer && android.y > Renderer.HEIGHT - 146) {
@@ -109,6 +109,7 @@ public class Flappy implements ActionListener {
                     }
                 }
             }
+        }
     }
 
     /**
@@ -241,27 +242,12 @@ public class Flappy implements ActionListener {
      *
      * @link Flappy#ForMouse
      */
-    class ForMouse implements MouseListener {
-
-        @Override public void mouseClicked(MouseEvent e) {
-
-        }
+    class ForMouse extends MouseAdapter {
 
         @Override public void mousePressed(MouseEvent e) {
             jump();
         }
 
-        @Override public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override public void mouseExited(MouseEvent e) {
-
-        }
     }
 
 
@@ -271,11 +257,7 @@ public class Flappy implements ActionListener {
      *
      * @link Flappy#ForKey
      */
-    class ForKey implements KeyListener {
-        @Override public void keyTyped(KeyEvent e) {
-
-        }
-
+    class ForKey extends KeyAdapter {
         @Override public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                 jump();
