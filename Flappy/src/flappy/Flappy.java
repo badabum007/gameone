@@ -13,15 +13,18 @@ public class Flappy implements ActionListener {
 
     public static Renderer renderer;
     public int ticks, heightJump = 16, yMotion, score = 0, speed;
-    public int pauseMotion = 0, pauseSpeed = 0;
+    public int pauseSpeed = 0;
     public boolean gameOwer, started, flag = true, speedflag = true;
-    public static boolean record, recovery, pause, jumpflag;
+    public static boolean recovery, pause, jumpflag;
     public ArrayList<MarshMallow> columns;
     public Android android;
     public Background background;
+    public Sort sort;
 
     public Flappy(Renderer renderer) {
         Timer timer = new Timer(20, this);
+        File f = new File("for save/file.txt");
+        f.delete();
         this.renderer = renderer;
         android = new Android();
         background = new Background();
@@ -41,17 +44,9 @@ public class Flappy implements ActionListener {
         if (!started) {
             started = true;
             speed = 10;
-            if (record) {
-                File f = new File("file.txt");
-                f.delete();
-            }
-            if (recovery) {
-                Save.recovery();
-            }
             columns.add(new MarshMallow());
         }
         if (gameOwer) {
-
             android.x = Renderer.WIDTH / 2 - 245;
             columns.clear();
             yMotion = 0;
@@ -60,13 +55,6 @@ public class Flappy implements ActionListener {
             columns.add(new MarshMallow());
             gameOwer = false;
             flag = true;
-            if (record) {
-                File f = new File("file.txt");
-                f.delete();
-            }
-            if (recovery) {
-                Save.recovery();
-            }
         } else if (!gameOwer && android.y > Renderer.HEIGHT - 146) {
             yMotion = 0;
             yMotion -= heightJump;
@@ -145,8 +133,7 @@ public class Flappy implements ActionListener {
      * @param e Event class object
      * @see Flappy#actionPerformed(ActionEvent)
      */
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    @Override public void actionPerformed(ActionEvent e) {
         ticks++;
         if (started) {
             xIncrement();
@@ -177,6 +164,8 @@ public class Flappy implements ActionListener {
                 if (column.intersects(android)) {
                     gameOwer = true;
                     speed = 0;
+                    File f = new File("for save/file.txt");
+                    f.delete();
                     if (android.x <= column.x) {
                         android.x = column.x - android.width;
                     } else {
@@ -189,7 +178,6 @@ public class Flappy implements ActionListener {
                 }
             }
         }
-        //renderer.repaint();
     }
 
     /**
@@ -230,7 +218,9 @@ public class Flappy implements ActionListener {
             if (heightJump == 17) {
                 g.drawString("easy", 15, 30);
             }
-
+            g.drawString("4 - save", 645, 30);
+            g.drawString("enter - pause", 645, 50);
+            g.drawString("ctrl - auto play", 645, 70);
         }
         if (gameOwer || !started) {
             g.setColor(Color.white);
@@ -238,8 +228,10 @@ public class Flappy implements ActionListener {
             g.drawString("1 - easy", 15, 30);
             g.drawString("2 - medium", 15, 50);
             g.drawString("3 - hard", 15, 70);
-            if (record) g.drawString("record", 700, 30);
-            if (recovery) g.drawString("recovery", 700, 50);
+            g.drawString("5 - recovery", 645, 30);
+            g.drawString("6 - sort in scala", 645, 50);
+            g.drawString("7 - sort in java", 645, 70);
+            g.drawString("8 - statistic", 645, 90);
         }
     }
 
@@ -251,31 +243,27 @@ public class Flappy implements ActionListener {
      */
     class ForMouse implements MouseListener {
 
-        @Override
-        public void mouseClicked(MouseEvent e) {
+        @Override public void mouseClicked(MouseEvent e) {
 
         }
 
-        @Override
-        public void mousePressed(MouseEvent e) {
+        @Override public void mousePressed(MouseEvent e) {
             jump();
         }
 
-        @Override
-        public void mouseReleased(MouseEvent e) {
+        @Override public void mouseReleased(MouseEvent e) {
 
         }
 
-        @Override
-        public void mouseEntered(MouseEvent e) {
+        @Override public void mouseEntered(MouseEvent e) {
 
         }
 
-        @Override
-        public void mouseExited(MouseEvent e) {
+        @Override public void mouseExited(MouseEvent e) {
 
         }
     }
+
 
     /**
      * inner class
@@ -284,20 +272,17 @@ public class Flappy implements ActionListener {
      * @link Flappy#ForKey
      */
     class ForKey implements KeyListener {
-        @Override
-        public void keyTyped(KeyEvent e) {
+        @Override public void keyTyped(KeyEvent e) {
 
         }
 
-        @Override
-        public void keyPressed(KeyEvent e) {
+        @Override public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                 jump();
             }
         }
 
-        @Override
-        public void keyReleased(KeyEvent e) {
+        @Override public void keyReleased(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
                 if (!jumpflag) {
                     jumpflag = true;
@@ -315,21 +300,27 @@ public class Flappy implements ActionListener {
                 if (e.getKeyCode() == KeyEvent.VK_3) {
                     heightJump = 15;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_4) {
-                    if (!record) {
-                        record = true;
-                    } else {
-                        record = false;
-                    }
-                }
                 if (e.getKeyCode() == KeyEvent.VK_5) {
                     if (!recovery) {
                         recovery = true;
                         jumpflag = true;
+                        Save.recovery();
                     } else {
                         recovery = false;
                         jumpflag = false;
                     }
+                }
+                if (e.getKeyCode() == KeyEvent.VK_6) {
+                    sort = new Sort();
+                    sort.sortInScala();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_7) {
+                    sort = new Sort();
+                    sort.sortInJava();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_8) {
+                    sort = new Sort();
+                    sort.getStatistic();
                 }
             } else {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -339,10 +330,12 @@ public class Flappy implements ActionListener {
                         pause = false;
                     }
                 }
+                if (e.getKeyCode() == KeyEvent.VK_4) {
+                    Save.saveNewFile(score);
+                }
+
             }
         }
     }
-
-
 }
 

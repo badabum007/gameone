@@ -3,7 +3,6 @@ package flappy;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,6 +11,7 @@ public class MarshMallow {
     BufferedImage mm;
     int x, y, width, height;
     Rectangle andr, cl;
+
     /**
      * Method init columns
      *
@@ -22,16 +22,21 @@ public class MarshMallow {
         if (Save.x == 0) {
             Random rand = new Random();
             int offset = rand.nextInt(300);
-            if (offset >= 0 && offset <= 50) offset = 50;
-            else if (offset >= 50 && offset <= 100) offset = 100;
-            else if (offset >= 100 && offset <= 150) offset = 150;
-            else if (offset >= 150 && offset <= 200) offset = 200;
-            else if (offset >= 200 && offset <= 250) offset = 250;
-            else if (offset >= 250 && offset <= 300) offset = 300;
+            if (offset >= 0 && offset <= 50)
+                offset = 50;
+            else if (offset >= 50 && offset <= 100)
+                offset = 100;
+            else if (offset >= 100 && offset <= 150)
+                offset = 150;
+            else if (offset >= 150 && offset <= 200)
+                offset = 200;
+            else if (offset >= 200 && offset <= 250)
+                offset = 250;
+            else if (offset >= 250 && offset <= 300)
+                offset = 300;
             x = 800 + offset;
         } else {
             x = Save.x;
-            System.out.print(x);
         }
         y = 480;
         width = 67;
@@ -46,11 +51,7 @@ public class MarshMallow {
         }
         SpriteSheet ss = new SpriteSheet(spriteSheet);
         this.mm = ss.grabSprite(0, 0, 67, 147);
-
-        if (Flappy.record) {
-            Save.record(x);
-        }
-
+        Save.record(x);
     }
 
     /**

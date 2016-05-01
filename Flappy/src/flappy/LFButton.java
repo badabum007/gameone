@@ -6,8 +6,7 @@ import java.awt.event.ActionListener;
 class LFButton implements ActionListener {
     boolean lf = true;
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    @Override public void actionPerformed(ActionEvent e) {
         if (lf == true) {
             Renderer.initSystemLookAndFeel();
             lf = false;
