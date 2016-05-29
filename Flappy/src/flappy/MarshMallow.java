@@ -43,6 +43,7 @@ public class MarshMallow {
             x = 800 + offset;
         } else {
             x = Save.x;
+            Parser.parseNotation(x);
         }
         y = 480;
         width = 67;

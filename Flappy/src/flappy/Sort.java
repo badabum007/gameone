@@ -98,7 +98,7 @@ public class Sort {
         try {
             BufferedWriter writer;
             writer = new BufferedWriter(new FileWriter(nameFile, false));
-            writer.write("time: " + Long.toString(time));
+            writer.write("time: " + Long.toString(time) + " ms");
             writer.newLine();
             writer.write("length dir: " + Integer.toString(i));
             writer.newLine();

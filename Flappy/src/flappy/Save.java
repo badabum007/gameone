@@ -59,15 +59,16 @@ public class Save {
         int ret = fileopen.showDialog(null, "Открыть файл");
         if (ret == JFileChooser.APPROVE_OPTION) {
             File file = fileopen.getSelectedFile();
+            Parser.parseNotation(file.toString());
             flag = true;
             try {
                 BufferedReader reader;
                 reader = new BufferedReader((new FileReader(file)));
                 String coord;
                 while ((coord = reader.readLine()) != null) {
-                    System.out.println(coord);
                     arrlist.add(Integer.parseInt(coord));
                 }
+                Parser.parseNotation(arrlist.get(0));
                 arrlist.remove(0);
                 reader.close();
             } catch (IOException e) {
